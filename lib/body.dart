@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'colom.dart';
+import 'over.dart';
+import 'win.dart';
+
+class bdy extends StatefulWidget {
+  const bdy({super.key});
+
+  @override
+  State<bdy> createState() => _bdyState();
+}
+
+class _bdyState extends State<bdy> {
+  int index = 1;
+  // 1 is game, 2 is gameover, 3 is win
+  void indexshift() {
+    if (index == 1) {
+      index = 0;
+    } else {
+      index = 1;
+    }
+  }
+
+  void indexshift2() {
+    if (index == 1){
+      index = 2;
+    } else {
+      index = 1;
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return IndexedStack(
+      index: index,
+      alignment: Alignment.center,
+      children: [
+        Stack(
+          children: [
+            Positioned(
+              top: 300,
+              child: Gameover(
+                change: () {
+                  setState(() {
+                    indexshift();
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        Stack(
+          children: [
+            Positioned(
+              top: 240,
+              child: coloum(
+                change: () {
+                  setState(() {
+                    indexshift();
+                  });
+                },
+                win: (){
+                  setState(() {
+                    indexshift2();
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        Stack(
+          children: [
+            Positioned(
+              top: 300,
+              child: Gamewin(
+                wined: (){
+                  setState(() {
+                    indexshift2();
+                  });
+                }
+              ))
+          ],
+        )
+      ],
+    );
+  }
+}
