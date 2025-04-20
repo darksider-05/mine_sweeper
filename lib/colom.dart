@@ -14,6 +14,37 @@ class _coloumState extends State<coloum> {
   bool hasrun = false;
   var matrice_object;
 
+  void buttons_func(int a, String b) {
+    
+    if (matrice_object.textholder[a] == "  ") {
+      matrice_object.textholder[a] = matrice_object.tapped(b);
+      if (matrice_object.textholder[a] != "💣"){
+        matrice_object.points ++;
+      }
+    }
+    
+    if (matrice_object.points == 0 && matrice_object.gameisover == true){
+      matrice_object.gameisover = false;
+      hasrun = false;
+      
+      
+    }
+    
+    
+
+    if (matrice_object.points != 0 && matrice_object.gameisover == true) {
+      widget.change();
+      matrice_object.gameisover = false;
+      hasrun = false;
+    }
+    if (matrice_object.haswon()) {
+      widget.win();
+      hasrun = false;
+    }
+    
+
+  }
+
   @override
   Widget build(BuildContext context) {
     if (hasrun == false) {
@@ -33,19 +64,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[0] == "  ") {
-                    matrice_object.textholder[0] = matrice_object.tapped("00");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(0, "00");
                 });
               },
               child: Text(matrice_object.textholder[0]),
@@ -53,19 +72,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[1] == "  ") {
-                    matrice_object.textholder[1] = matrice_object.tapped("01");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(1, "01");
                 });
               },
               child: Text(matrice_object.textholder[1]),
@@ -73,19 +80,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[2] == "  ") {
-                    matrice_object.textholder[2] = matrice_object.tapped("02");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(2, "02");
                 });
               },
               child: Text(matrice_object.textholder[2]),
@@ -93,19 +88,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[3] == "  ") {
-                    matrice_object.textholder[3] = matrice_object.tapped("03");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(3, "03");
                 });
               },
               child: Text(matrice_object.textholder[3]),
@@ -113,19 +96,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[4] == "  ") {
-                    matrice_object.textholder[4] = matrice_object.tapped("04");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(4, "04");
                 });
               },
               child: Text(matrice_object.textholder[4]),
@@ -133,19 +104,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[5] == "  ") {
-                    matrice_object.textholder[5] = matrice_object.tapped("05");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(5, "05");
                 });
               },
               child: Text(matrice_object.textholder[5]),
@@ -159,19 +118,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[6] == "  ") {
-                    matrice_object.textholder[6] = matrice_object.tapped("10");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(6, "10");
                 });
               },
               child: Text(matrice_object.textholder[6]),
@@ -179,19 +126,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[7] == "  ") {
-                    matrice_object.textholder[7] = matrice_object.tapped("11");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(7, "11");
                 });
               },
               child: Text(matrice_object.textholder[7]),
@@ -199,19 +134,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[8] == "  ") {
-                    matrice_object.textholder[8] = matrice_object.tapped("12");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(8, "12");
                 });
               },
               child: Text(matrice_object.textholder[8]),
@@ -219,19 +142,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[9] == "  ") {
-                    matrice_object.textholder[9] = matrice_object.tapped("13");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(9, "13");
                 });
               },
               child: Text(matrice_object.textholder[9]),
@@ -239,19 +150,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[10] == "  ") {
-                    matrice_object.textholder[10] = matrice_object.tapped("14");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(10, "14");
                 });
               },
               child: Text(matrice_object.textholder[10]),
@@ -259,19 +158,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[11] == "  ") {
-                    matrice_object.textholder[11] = matrice_object.tapped("15");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(11, "15");
                 });
               },
               child: Text(matrice_object.textholder[11]),
@@ -285,19 +172,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[12] == "  ") {
-                    matrice_object.textholder[12] = matrice_object.tapped("20");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(12, "20");
                 });
               },
               child: Text(matrice_object.textholder[12]),
@@ -305,19 +180,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[13] == "  ") {
-                    matrice_object.textholder[13] = matrice_object.tapped("21");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(13, "21");
                 });
               },
               child: Text(matrice_object.textholder[13]),
@@ -325,19 +188,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[14] == "  ") {
-                    matrice_object.textholder[14] = matrice_object.tapped("22");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(14, "22");
                 });
               },
               child: Text(matrice_object.textholder[14]),
@@ -345,19 +196,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[15] == "  ") {
-                    matrice_object.textholder[15] = matrice_object.tapped("23");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(15, "23");
                 });
               },
               child: Text(matrice_object.textholder[15]),
@@ -365,19 +204,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[16] == "  ") {
-                    matrice_object.textholder[16] = matrice_object.tapped("24");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(16, "24");
                 });
               },
               child: Text(matrice_object.textholder[16]),
@@ -385,19 +212,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[17] == "  ") {
-                    matrice_object.textholder[17] = matrice_object.tapped("25");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(17, "25");
                 });
               },
               child: Text(matrice_object.textholder[17]),
@@ -411,19 +226,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[18] == "  ") {
-                    matrice_object.textholder[18] = matrice_object.tapped("30");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(18, "30");
                 });
               },
               child: Text(matrice_object.textholder[18]),
@@ -431,19 +234,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[19] == "  ") {
-                    matrice_object.textholder[19] = matrice_object.tapped("31");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(19, "31");
                 });
               },
               child: Text(matrice_object.textholder[19]),
@@ -451,19 +242,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[20] == "  ") {
-                    matrice_object.textholder[20] = matrice_object.tapped("32");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(20, "32");
                 });
               },
               child: Text(matrice_object.textholder[20]),
@@ -471,19 +250,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[21] == "  ") {
-                    matrice_object.textholder[21] = matrice_object.tapped("33");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(21, "33");
                 });
               },
               child: Text(matrice_object.textholder[21]),
@@ -491,19 +258,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[22] == "  ") {
-                    matrice_object.textholder[22] = matrice_object.tapped("34");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(22, "34");
                 });
               },
               child: Text(matrice_object.textholder[22]),
@@ -511,19 +266,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[23] == "  ") {
-                    matrice_object.textholder[23] = matrice_object.tapped("35");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(23, "35");
                 });
               },
               child: Text(matrice_object.textholder[23]),
@@ -537,19 +280,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[24] == "  ") {
-                    matrice_object.textholder[24] = matrice_object.tapped("40");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(24, "40");
                 });
               },
               child: Text(matrice_object.textholder[24]),
@@ -557,19 +288,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[25] == "  ") {
-                    matrice_object.textholder[25] = matrice_object.tapped("41");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(25, "41");
                 });
               },
               child: Text(matrice_object.textholder[25]),
@@ -577,19 +296,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[26] == "  ") {
-                    matrice_object.textholder[26] = matrice_object.tapped("42");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(26, "42");
                 });
               },
               child: Text(matrice_object.textholder[26]),
@@ -597,19 +304,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[27] == "  ") {
-                    matrice_object.textholder[27] = matrice_object.tapped("43");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(27, "43");
                 });
               },
               child: Text(matrice_object.textholder[27]),
@@ -617,19 +312,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[28] == "  ") {
-                    matrice_object.textholder[28] = matrice_object.tapped("44");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(28, "44");
                 });
               },
               child: Text(matrice_object.textholder[28]),
@@ -637,19 +320,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[29] == "  ") {
-                    matrice_object.textholder[29] = matrice_object.tapped("45");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(29, "45");
                 });
               },
               child: Text(matrice_object.textholder[29]),
@@ -663,19 +334,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[30] == "  ") {
-                    matrice_object.textholder[30] = matrice_object.tapped("50");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(30, "50");
                 });
               },
               child: Text(matrice_object.textholder[30]),
@@ -683,19 +342,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[31] == "  ") {
-                    matrice_object.textholder[31] = matrice_object.tapped("51");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(31, "51");
                 });
               },
               child: Text(matrice_object.textholder[31]),
@@ -703,19 +350,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[32] == "  ") {
-                    matrice_object.textholder[32] = matrice_object.tapped("52");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(32, "52");
                 });
               },
               child: Text(matrice_object.textholder[32]),
@@ -723,19 +358,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[33] == "  ") {
-                    matrice_object.textholder[33] = matrice_object.tapped("53");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(33, "53");
                 });
               },
               child: Text(matrice_object.textholder[33]),
@@ -743,19 +366,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[34] == "  ") {
-                    matrice_object.textholder[34] = matrice_object.tapped("54");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(34, "54");
                 });
               },
               child: Text(matrice_object.textholder[34]),
@@ -763,19 +374,7 @@ class _coloumState extends State<coloum> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  if (matrice_object.textholder[35] == "  ") {
-                    matrice_object.textholder[35] = matrice_object.tapped("55");
-                    matrice_object.points++;
-                  }
-                  if (matrice_object.gameisover == true) {
-                    widget.change();
-                    matrice_object.gameisover = false;
-                    hasrun = false;
-                  }
-                  if (matrice_object.haswon()){
-                    widget.win();
-                    hasrun = false;
-                  }
+                  buttons_func(35, "55");
                 });
               },
               child: Text(matrice_object.textholder[35]),
