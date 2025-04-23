@@ -20,9 +20,8 @@ class Matrixe {
         else if (i > 4 && j > 4) {
         if(a < 40) { a=6;} else {a=5;}}
         else{ 
-        if (a < 18) {a=6;}
-          a = 6; // 6 means bomb
-        } else {
+        if (a < 18) {a=6;} // 6 means bomb
+         else {
           a = 5; // 5 means safe
         }
         row.add(a);
