@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'colom.dart';
-import 'over.dart';
-import 'win.dart';
+import 'ui.dart';
+import 'GameOverPage.dart';
+import 'GameWinPage.dart';
 
 class bdy extends StatefulWidget {
   const bdy({super.key});

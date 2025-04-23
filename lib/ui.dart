@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'matrixx.dart';
+import 'GameBoard.dart';
 
 class Coloum extends StatefulWidget {
   final VoidCallback change;
