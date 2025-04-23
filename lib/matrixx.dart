@@ -11,7 +11,16 @@ class Matrixe {
     for (int i = 1; i <= 6; i++) {
       for (int j = 1; j <= 6; j++) {
         int a = Random().nextInt(101);
-        if (a <= 23) {
+        if (i < 3 && j < 3) {
+        if(a < 40) { a=6;} else {a=5;}}
+        else if (i < 3 && j > 4) {
+        if(a < 40) { a=6;} else {a=5;}}
+        else if (i > 4 && j < 3) {
+        if(a < 40) { a=6;} else {a=5;}}
+        else if (i > 4 && j > 4) {
+        if(a < 40) { a=6;} else {a=5;}}
+        else{ 
+        if (a < 18) {a=6;}
           a = 6; // 6 means bomb
         } else {
           a = 5; // 5 means safe
