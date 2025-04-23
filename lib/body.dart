@@ -54,7 +54,7 @@ class _bdyState extends State<bdy> {
           children: [
             Positioned(
               top: 240,
-              child: coloum(
+              child: Coloum(
                 change: () {
                   setState(() {
                     indexshift();

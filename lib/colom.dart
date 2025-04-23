@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'matrixx.dart';
 
-class coloum extends StatefulWidget {
+class Coloum extends StatefulWidget {
   final VoidCallback change;
   final VoidCallback win;
-  coloum({super.key, required this.change, required this.win});
+  const Coloum({super.key, required this.change, required this.win});
 
   @override
-  State<coloum> createState() => _coloumState();
+  State<Coloum> createState() => _ColoumState();
 }
 
-class _coloumState extends State<coloum> {
+class _ColoumState extends State<Coloum> {
   bool hasrun = false;
   var matrice_object;
 
