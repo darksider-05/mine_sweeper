@@ -39,7 +39,6 @@ class _bdyState extends State<bdy> {
         Stack(
           children: [
             Positioned(
-              top: 300,
               child: Gameover(
                 change: () {
                   setState(() {
@@ -72,7 +71,6 @@ class _bdyState extends State<bdy> {
         Stack(
           children: [
             Positioned(
-              top: 300,
               child: Gamewin(
                 wined: (){
                   setState(() {
