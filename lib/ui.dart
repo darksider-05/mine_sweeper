@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'GameBoard.dart';
 
-class Coloum extends StatefulWidget {
+class Game_body extends StatefulWidget {
   final VoidCallback change;
   final VoidCallback win;
-  const Coloum({super.key, required this.change, required this.win});
+  const Game_body({super.key, required this.change, required this.win});
 
   @override
-  State<Coloum> createState() => _ColoumState();
+  State<Game_body> createState() => _Game_bodyState();
 }
 
-class _ColoumState extends State<Coloum> {
+class _Game_bodyState extends State<Game_body> {
   bool hasrun = false;
   var matrice_object;
 

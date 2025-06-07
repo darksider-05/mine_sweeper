@@ -53,7 +53,7 @@ class _bdyState extends State<bdy> {
           children: [
             Positioned(
               top: 240,
-              child: Coloum(
+              child: Game_body(
                 change: () {
                   setState(() {
                     indexshift();
