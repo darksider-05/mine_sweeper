@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Gamewin extends StatelessWidget {
-  final VoidCallback wined;
-  const Gamewin({super.key, required this.wined});
+import '../../providers/logic.dart';
+
+class WinPage extends StatelessWidget {
+  const WinPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      color: Colors.cyanAccent,
-      child: Column(
-        spacing: 20,
+    final basic = context.watch<Basic>();
 
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 300),
+          SizedBox(width: MediaQuery.of(context).size.width),
           Text("🎉 you won! 🎉", style: TextStyle(fontSize: 25)),
-          SizedBox(height: 10,),
           ElevatedButton(
-            onPressed: wined,
+            onPressed: (){
+              basic.goBack();
+            },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all(Colors.white38),
               shape: WidgetStateProperty.all(
@@ -25,11 +27,10 @@ class Gamewin extends StatelessWidget {
               ),
             ),
             child: Text(
-              "start",
+              "Go Back",
               style: TextStyle(color: Colors.black, fontSize: 15),
             ),
           ),
-          Container(width: MediaQuery.of(context).size.width),
         ],
       ),
     );
