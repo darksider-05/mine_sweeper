@@ -66,7 +66,7 @@ class GamePage extends StatelessWidget {
                                   }
                                   : null,
                           child:
-                              game.ready ? Text(game.view[indc][indr]) : null,
+                              game.ready ? Text(game.view[indc][indr], style: TextStyle(color: pallet.txt),) : null,
                         ),
                       ),
                     );
