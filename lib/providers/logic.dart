@@ -136,8 +136,8 @@ class Basic with ChangeNotifier {
   int pageindex = 0;
   int dif = 0;
   bool hint = false;
-  double Swidth = 0;
-  double Sheight = 0;
+  double swidth = 0;
+  double sheight = 0;
 
   void setDif(int ddd) {
     dif = ddd;

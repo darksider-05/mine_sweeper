@@ -10,28 +10,40 @@ class WinPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final basic = context.watch<Basic>();
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(width: MediaQuery.of(context).size.width),
-          Text("🎉 you won! 🎉", style: TextStyle(fontSize: 25)),
-          ElevatedButton(
-            onPressed: (){
-              basic.goBack();
-            },
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(Colors.white38),
-              shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    return Container(
+      decoration: BoxDecoration(color: Colors.purple,),
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(75),color: Colors.yellow,),
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(120),color: Colors.red,),
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(250),color: Colors.cyan,),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width),
+                  Text("🎉 you won! 🎉", style: TextStyle(fontSize: 25, color: Colors.black)),
+                  ElevatedButton(
+                    onPressed: (){
+                      basic.goBack();
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.green),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ),
+                    child: Text(
+                      "Go Back",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: Text(
-              "Go Back",
-              style: TextStyle(color: Colors.black, fontSize: 15),
-            ),
           ),
-        ],
+        ),
       ),
     );
   }
