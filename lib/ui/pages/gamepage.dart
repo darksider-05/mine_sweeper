@@ -58,10 +58,12 @@ class GamePage extends StatelessWidget {
                                     if (game.checkLoss()) {
                                       basic.lost();
                                       game.ready = false;
+                                      game.flag = false;
                                     }
                                     if (game.checkWin(len)) {
                                       basic.won();
                                       game.ready = false;
+                                      game.flag = false;
                                     }
                                   }
                                   : null,
@@ -107,7 +109,7 @@ class GamePage extends StatelessWidget {
           left: MediaQuery.of(context).size.width * (6 / 100),
           child: IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () => game.unflag(),
+            onPressed: () => game.unFlag(),
             icon:
                 game.flag
                     ? Container(

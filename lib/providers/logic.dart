@@ -66,7 +66,7 @@ class Game with ChangeNotifier {
 
   bool checkLoss() {
     if (flags == 0) {
-      return false;
+      return true;
     }
     for (var row in view) {
       for (var item in row) {
@@ -102,7 +102,7 @@ class Game with ChangeNotifier {
     return false;
   }
 
-  void unflag() {
+  void unFlag() {
     flag = !flag;
     notifyListeners();
   }
