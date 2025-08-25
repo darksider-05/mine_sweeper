@@ -119,7 +119,7 @@ class GamePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20)
                       ),
                       child: Column(
-                        children: [Icon(Icons.flag), Text("${game.flags}x")],
+                        children: [Icon(Icons.flag, color: pallet.txt,), Text("${game.flags}x")],
                       ),
                     )
                     : Container(
@@ -132,7 +132,7 @@ class GamePage extends StatelessWidget {
                         children: [
                           Stack(
                             children: [
-                              Icon(Icons.flag, color: Colors.white,),
+                              Icon(Icons.flag, color: pallet.txt,),
                               Positioned(
                                 left: 2,
                                 top: -1,
