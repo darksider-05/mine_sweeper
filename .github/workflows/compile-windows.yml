@@ -30,8 +30,11 @@ jobs:
       - name: Build Windows app
         run: flutter build windows --release
 
+      - name: Rename executable
+        run: copy build\windows\x64\Release\Runner.exe build\windows\x64\Release\MineSweeper-windows.exe
+
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
-          name: SafeString-windows
-          path: build/windows/runner/Release/
+          name: MineSweeper-windows
+          path: build/windows/x64/Release/
