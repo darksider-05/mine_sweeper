@@ -19,7 +19,6 @@ jobs:
         with:
           flutter-version: '3.29.0' # <-- pin to a specific version
           architecture: x64
-          cache: true
 
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
@@ -37,4 +36,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MineSweeper-windows
-          path: build/windows/x64/Release/
+          path: build/windows/runner/Release/
+
