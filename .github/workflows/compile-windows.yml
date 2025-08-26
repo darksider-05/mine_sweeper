@@ -1,6 +1,9 @@
 name: Build Flutter Windows
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -14,8 +17,9 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.1' # <-- pin to a specific version
+          flutter-version: '3.29.0' # <-- pin to a specific version
           architecture: x64
+          cache: true
 
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
