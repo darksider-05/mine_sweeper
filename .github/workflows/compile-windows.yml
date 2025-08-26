@@ -14,7 +14,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.2' # <-- pin to a specific version
+          flutter-version: '3.27.1' # <-- pin to a specific version
           architecture: x64
 
       - name: Enable Windows desktop
