@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,25 +25,33 @@ class GamePage extends StatelessWidget {
       game.makeMap(len);
     }
 
+    var width = MediaQuery.of(context).size.shortestSide;
+    var height = MediaQuery.of(context).size.longestSide;
+    bool isver = MediaQuery.of(context).orientation == Orientation.portrait;
+    var truewidth = isver ? width : height;
+    var trueheight =
+        isver
+            ? height - kBottomNavigationBarHeight
+            : width - kBottomNavigationBarHeight;
+
     return Stack(
       children: [
         Container(
           color: pallet.bg,
           child: Center(
             child: Column(
-              spacing: 6,
+              spacing: min(trueheight, truewidth) * 0.02,
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(len, (indc) {
                 return Row(
-                  spacing: 6,
+                  spacing: min(trueheight, truewidth) * 0.02,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List<Widget>.generate(len, (indr) {
                     return Material(
                       color: pallet.btn,
                       elevation: (game.view[indc][indr] == "0") ? 0 : 6,
                       child: SizedBox.square(
-                        dimension:
-                            MediaQuery.of(context).size.width / (len + 4),
+                        dimension: min(trueheight, truewidth) / (len + 4),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: pallet.btn,
@@ -68,7 +78,12 @@ class GamePage extends StatelessWidget {
                                   }
                                   : null,
                           child:
-                              game.ready ? Text(game.view[indc][indr], style: TextStyle(color: pallet.txt),) : null,
+                              game.ready
+                                  ? Text(
+                                    game.view[indc][indr],
+                                    style: TextStyle(color: pallet.txt),
+                                  )
+                                  : null,
                         ),
                       ),
                     );
@@ -83,23 +98,11 @@ class GamePage extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                children: [
-                  SizedBox(width: MediaQuery.of(context).size.width),
-                ],
+                children: [SizedBox(width: MediaQuery.of(context).size.width)],
               ),
-              Row(
-                children: [
-                  Text("bombs: ${game.bombs}"),
-                ],
-              ),
-              Row(
-                children: [
-                  Text("score: ${game.score}"),
-                ],
-              ),
-              Row(
-                children: [Text("")],
-              )
+              Row(children: [Text("bombs: ${game.bombs}")]),
+              Row(children: [Text("score: ${game.score}")]),
+              Row(children: [Text("")]),
             ],
           ),
         ),
@@ -113,32 +116,38 @@ class GamePage extends StatelessWidget {
             icon:
                 game.flag
                     ? Container(
-                  padding: EdgeInsets.all(9),
+                      padding: EdgeInsets.all(9),
                       decoration: BoxDecoration(
                         color: pallet.passout,
-                        borderRadius: BorderRadius.circular(20)
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
-                        children: [Icon(Icons.flag, color: pallet.txt,), Text("${game.flags}x")],
+                        children: [
+                          Icon(Icons.flag, color: pallet.txt),
+                          Text("${game.flags}x"),
+                        ],
                       ),
                     )
                     : Container(
-                  padding: EdgeInsets.all(9),
-                  decoration: BoxDecoration(
-                      color: pallet.passout,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
+                      padding: EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: pallet.passout,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Column(
                         children: [
                           Stack(
                             children: [
-                              Icon(Icons.flag, color: pallet.txt,),
+                              Icon(Icons.flag, color: pallet.txt),
                               Positioned(
                                 left: 2,
                                 top: -1,
                                 child: Text(
                                   "❌",
-                                  style: TextStyle(fontSize: 16, color: Colors.red),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                             ],
