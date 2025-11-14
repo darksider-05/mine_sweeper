@@ -1,4 +1,7 @@
 name: Build Flutter Windows and Deploy Web
+permissions:
+  contents: write
+
 
 on:
   push:
@@ -36,7 +39,6 @@ jobs:
           path: build/windows/x64/runner/Release/
 
   deploy-web:
-    needs: build-windows
     runs-on: ubuntu-latest
 
     steps:
