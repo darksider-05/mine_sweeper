@@ -1,4 +1,4 @@
-name: Build Flutter Windows
+name: Build Flutter Windows and Deploy Web
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0' # <-- pin to a specific version
+          flutter-version: '3.29.0'
           architecture: x64
 
       - name: Enable Windows desktop
@@ -35,3 +35,23 @@ jobs:
           name: MineSweeper-windows
           path: build/windows/x64/runner/Release/
 
+  deploy-web:
+    needs: build-windows
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - run: flutter pub get
+      - run: flutter build web --release
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: build/web
