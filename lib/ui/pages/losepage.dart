@@ -8,26 +8,37 @@ class Losepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final basic = context.watch<Basic>();
+    final basic = context.watch<Navigation>();
+    final game = context.watch<Game>();
 
     return Container(
       color: Colors.green,
       child: Container(
-        decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(100)),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(100),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(width: MediaQuery.of(context).size.width),
-              Text("you lost, but no worries!\nyou can always try again!", textAlign: TextAlign.center, style: TextStyle(fontSize: 25, color: Colors.black)),
+              Text(
+                "you lost, but no worries!\nyou can always try again!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25, color: Colors.black),
+              ),
               ElevatedButton(
-                onPressed: (){
-                  basic.goBack();
+                onPressed: () {
+                  basic.isIntro = true;
+                  game.lost = false;
                 },
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Colors.green),
                   shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
                 child: Text(

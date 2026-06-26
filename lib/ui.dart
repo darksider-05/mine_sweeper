@@ -13,39 +13,51 @@ class Base extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => Game()),
-      ChangeNotifierProvider(create: (_) => Basic()),
-      ChangeNotifierProvider(create: (_) => Themes())
-    ],
-    child: Core(),);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Game()),
+        ChangeNotifierProvider(create: (_) => Navigation()),
+        ChangeNotifierProvider(create: (_) => Themes()),
+      ],
+      child: Core(),
+    );
   }
 }
-
-
 
 class Core extends StatelessWidget {
   const Core({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final basic = context.watch<Basic>();
+    final basic = context.watch<Navigation>();
+    final game = context.watch<Game>();
     final pallet = context.watch<Themes>();
     pallet.loadTheme();
-    basic.sheight = MediaQuery.of(context).size.height;
-    basic.swidth = MediaQuery.of(context).size.width;
     return MaterialApp(
-      theme: ThemeData(textTheme: TextTheme(bodyMedium: TextStyle(color: pallet.txt))),
-    home: Scaffold(
-      drawer: Drwr(),
-      body: switch(basic.pageindex){
-        0 => IntroPage(),
-        1 => GamePage(),
-        2 => Losepage(),
-        3 => WinPage(),
-      _ => null
-      },
-    ),
+      theme: ThemeData(
+        textTheme: TextTheme(bodyMedium: TextStyle(color: pallet.txt)),
+      ),
+      home: Scaffold(
+        drawer: Drwr(),
+        body:
+            (basic.isIntro)
+                ? IntroPage()
+                : (!game.lost && !game.won)
+                ? GamePage()
+                : game.lost & !game.won
+                ? Losepage()
+                : game.won & !game.lost
+                ? WinPage()
+                : null,
+
+        // {
+        //   0 => IntroPage(),
+        //   1 => GamePage(),
+        //   2 => Losepage(),
+        //   3 => WinPage(),
+        //   _ => null,
+        // },
+      ),
     );
   }
 }

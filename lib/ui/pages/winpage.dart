@@ -8,30 +8,46 @@ class WinPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final basic = context.watch<Basic>();
+    final basic = context.watch<Navigation>();
+    final game = context.watch<Game>();
 
     return Container(
-      decoration: BoxDecoration(color: Colors.purple,),
+      decoration: BoxDecoration(color: Colors.purple),
       child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(75),color: Colors.yellow,),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(75),
+          color: Colors.yellow,
+        ),
         child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(120),color: Colors.red,),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(120),
+            color: Colors.red,
+          ),
           child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(250),color: Colors.cyan,),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(250),
+              color: Colors.cyan,
+            ),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(width: MediaQuery.of(context).size.width),
-                  Text("🎉 you won! 🎉", style: TextStyle(fontSize: 25, color: Colors.black)),
+                  Text(
+                    "🎉 you won! 🎉",
+                    style: TextStyle(fontSize: 25, color: Colors.black),
+                  ),
                   ElevatedButton(
-                    onPressed: (){
-                      basic.goBack();
+                    onPressed: () {
+                      basic.isIntro = true;
+                      game.won = false;
                     },
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.green),
                       shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
                     child: Text(

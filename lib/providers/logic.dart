@@ -1,166 +1,188 @@
 import 'package:flutter/foundation.dart';
 import 'dart:math';
 
-class Game with ChangeNotifier {
-  int flags = 3;
-  int score = 0;
-  int bombs = 0;
-  bool flag = false;
-  List<List<String>> board = [];
-  List<List<String>> view = [];
-  bool ready = false;
+enum CellVisibility { revealed, hidden }
 
-  void makeMap(int len) {
-    score = 0;
-    flags = 3;
-    board = List.generate(
-      len,
-      (_) => List.generate(len, (_) {
-        return (Random().nextInt(101) < 20) ? "b" : "s";
-      }),
-    );
+enum CellFlag { flagged, unflagged }
 
-    view = List.generate(
-      len,
-      (_) => List.generate(len, (_) {
-        return "";
-      }),
-    );
+enum CellContent { bomb, safe }
 
-    int holder = 0;
-    for (var row in board) {
-      for (var items in row) {
-        if (items == "b") {
-          holder += 1;
-        }
-      }
-    }
-    bombs = holder;
+enum InteractResult { nothing, flagMistake, death }
 
-    ready = true;
-  }
+class Cell {
+  final int x;
+  final int y;
+  final CellContent content;
 
-  void find(int col, int row) {
-    if (view[col][row] == "") {
-      if (flag) {
-        if (board[col][row] == "b") {
-          view[col][row] = "🚩";
-          score += 1;
-        } else if (board[col][row] == "s") {
-          view[col][row] = "🚩";
-          flags -= 1;
-          score += 1;
-        }
-      } else if (!flag) {
-        if (board[col][row] == "b") {
-          view[col][row] = "💣";
-        } else if (board[col][row] == "s") {
-          view[col][row] = count(col, row).toString();
-          score += 1;
-        }
+  late final int bombCount;
+
+  List<Cell> neighbors = [];
+  CellVisibility visibility = CellVisibility.hidden;
+  CellFlag flagged = CellFlag.unflagged;
+  Cell({required this.x, required this.y, required this.content});
+
+  InteractResult interact({required bool isFlagMode, int depth = 0}) {
+    if (visibility == CellVisibility.revealed) return InteractResult.nothing;
+
+    visibility = CellVisibility.revealed;
+
+    if (bombCount == 0) {
+      for (final neighbor in neighbors) {
+        neighbor.interact(isFlagMode: false, depth: depth + 1);
       }
     }
 
-    notifyListeners();
-  }
-
-  bool checkLoss() {
-    if (flags == 0) {
-      return true;
-    }
-    for (var row in view) {
-      for (var item in row) {
-        if (item == "💣") {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  bool checkWin(int len) {
-    if (checkFlags()) {
-      if (score == len * len) {
-        return true;
+    if (isFlagMode) flagged = CellFlag.flagged;
+    if (isFlagMode) {
+      if (content == CellContent.bomb) {
+        return InteractResult.nothing;
+      } else {
+        return InteractResult.flagMistake;
       }
     } else {
-      if (score == ((len * len) - bombs)) {
-        return true;
+      if (content == CellContent.bomb) {
+        return InteractResult.death;
+      } else {
+        return InteractResult.nothing;
       }
     }
-    return false;
   }
 
-  bool checkFlags() {
-    for (var row in view) {
-      for (var item in row) {
-        if (item == "🚩") {
-          return true;
-        }
-      }
-    }
-    return false;
+  void checkNeighbors() {
+    bombCount = neighbors.where((n) => n.content == CellContent.bomb).length;
   }
 
-  void unFlag() {
-    flag = !flag;
-    notifyListeners();
-  }
-
-  int count(int col, int row) {
-    int a = 0;
-
-    for (int c in [col - 1, col, col + 1]) {
-      for (int r in [row - 1, row + 1]) {
-        try {
-          if (board[c][r] == "b") {
-            a += 1;
-          }
-        } catch (e) {}
-      }
+  @override
+  String toString() {
+    if (visibility == CellVisibility.hidden) return "";
+    if (flagged == CellFlag.flagged) return "🚩";
+    if (content == CellContent.bomb) {
+      return "💣";
+    } else {
+      return bombCount.toString();
     }
-
-    for (int c in [col - 1, col + 1]) {
-      try {
-        if (board[c][row] == "b") {
-          a += 1;
-        }
-      } catch (e) {}
-    }
-
-    return a;
   }
 }
 
-class Basic with ChangeNotifier {
-  int pageindex = 0;
+class Game with ChangeNotifier {
+  int forgiveness = 3;
+  late List<List<Cell>> grid;
+  late int size;
+  bool ready = false;
+  bool lost = false;
+  bool won = false;
+  late int bombs;
+
+  void makeMap(int size) {
+    lost = false;
+    won = false;
+    bombs = 0;
+    forgiveness = 3;
+    this.size = size;
+    grid = List.generate(
+      size,
+      (x) => List.generate(
+        size,
+        (y) => Cell(
+          x: x,
+          y: y,
+          content:
+              (Random().nextInt(101) < 20)
+                  ? CellContent.bomb
+                  : CellContent.safe,
+        ),
+      ),
+    );
+
+    linker();
+  }
+
+  void linker() {
+    for (var cells in grid) {
+      for (var cell in cells) {
+        if (cell.content == CellContent.bomb) bombs++;
+        for (int x = -1; x <= 1; x++) {
+          for (int y = -1; y <= 1; y++) {
+            int xm = cell.x + x;
+            int ym = cell.y + y;
+
+            if (x == 0 && y == 0) continue;
+            int boundry = grid.length;
+
+            if (xm >= 0 && xm < boundry && ym >= 0 && ym < boundry) {
+              cell.neighbors.add(grid[xm][ym]);
+            }
+          }
+        }
+        cell.checkNeighbors();
+      }
+    }
+    ready = true;
+  }
+
+  void cellInteract({
+    required bool isFlagMode,
+    required int x,
+    required int y,
+  }) {
+    switch (grid[x][y].interact(isFlagMode: isFlagMode)) {
+      case (InteractResult.nothing):
+        break;
+      case (InteractResult.flagMistake):
+        forgiveness--;
+        break;
+      case (InteractResult.death):
+        lose();
+        break;
+    }
+    checkState();
+  }
+
+  void lose() {
+    lost = true;
+    ready = false;
+  }
+
+  void checkState() {
+    if (forgiveness == 0) {
+      lose();
+      return;
+    }
+    int target = size * size;
+    int total = 0;
+    int flaggedBombs = 0;
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        if (grid[i][j].content == CellContent.safe &&
+            grid[i][j].visibility == CellVisibility.revealed) {
+          total++;
+        }
+        if (grid[i][j].content == CellContent.bomb &&
+            grid[i][j].flagged == CellFlag.flagged) {
+          flaggedBombs++;
+        }
+      }
+    }
+
+    won = (target == (total + bombs)) || flaggedBombs == bombs;
+    if (won) ready = false;
+    notifyListeners();
+  }
+}
+
+class Navigation with ChangeNotifier {
+  bool isIntro = true;
   int dif = 0;
   bool hint = false;
-  double swidth = 0;
-  double sheight = 0;
 
   void setDif(int ddd) {
     dif = ddd;
-    pageindex = 1;
+    isIntro = false;
     notifyListeners();
   }
-  void unHint(){
+
+  void unHint() {
     hint = !hint;
-    notifyListeners();
-  }
-
-  void lost() {
-    pageindex = 2;
-    notifyListeners();
-  }
-
-  void won() {
-    pageindex = 3;
-    notifyListeners();
-  }
-
-  void goBack(){
-    pageindex = 0;
     notifyListeners();
   }
 }

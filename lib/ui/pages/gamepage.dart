@@ -6,12 +6,19 @@ import 'package:provider/provider.dart';
 import '../../providers/logic.dart';
 import '../../providers/theme.dart';
 
-class GamePage extends StatelessWidget {
+class GamePage extends StatefulWidget {
   const GamePage({super.key});
 
   @override
+  State<GamePage> createState() => _GamePageState();
+}
+
+class _GamePageState extends State<GamePage> {
+  bool flagMode = false;
+
+  @override
   Widget build(BuildContext context) {
-    final basic = context.watch<Basic>();
+    final basic = context.watch<Navigation>();
     final game = context.watch<Game>();
     final pallet = context.watch<Themes>();
     int len = switch (basic.dif) {
@@ -49,7 +56,11 @@ class GamePage extends StatelessWidget {
                   children: List<Widget>.generate(len, (indr) {
                     return Material(
                       color: pallet.btn,
-                      elevation: (game.view[indc][indr] == "0") ? 0 : 6,
+                      elevation:
+                          (game.grid[indc][indr].visibility ==
+                                  CellVisibility.revealed)
+                              ? 0
+                              : 6,
                       child: SizedBox.square(
                         dimension: min(trueheight, truewidth) / (len + 4),
                         child: ElevatedButton(
@@ -62,25 +73,18 @@ class GamePage extends StatelessWidget {
                             ),
                           ),
                           onPressed:
-                              (game.view[indc][indr] != "0")
-                                  ? () {
-                                    game.find(indc, indr);
-                                    if (game.checkLoss()) {
-                                      basic.lost();
-                                      game.ready = false;
-                                      game.flag = false;
-                                    }
-                                    if (game.checkWin(len)) {
-                                      basic.won();
-                                      game.ready = false;
-                                      game.flag = false;
-                                    }
-                                  }
+                              (game.grid[indc][indr].visibility ==
+                                      CellVisibility.hidden)
+                                  ? () => game.cellInteract(
+                                    x: indc,
+                                    y: indr,
+                                    isFlagMode: flagMode,
+                                  )
                                   : null,
                           child:
                               game.ready
                                   ? Text(
-                                    game.view[indc][indr],
+                                    game.grid[indc][indr].toString(),
                                     style: TextStyle(color: pallet.txt),
                                   )
                                   : null,
@@ -101,7 +105,7 @@ class GamePage extends StatelessWidget {
                 children: [SizedBox(width: MediaQuery.of(context).size.width)],
               ),
               Row(children: [Text("bombs: ${game.bombs}")]),
-              Row(children: [Text("score: ${game.score}")]),
+
               Row(children: [Text("")]),
             ],
           ),
@@ -112,9 +116,12 @@ class GamePage extends StatelessWidget {
           left: MediaQuery.of(context).size.width * (6 / 100),
           child: IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () => game.unFlag(),
+            onPressed:
+                () => setState(() {
+                  flagMode = !flagMode;
+                }),
             icon:
-                game.flag
+                flagMode
                     ? Container(
                       padding: EdgeInsets.all(9),
                       decoration: BoxDecoration(
@@ -124,7 +131,7 @@ class GamePage extends StatelessWidget {
                       child: Column(
                         children: [
                           Icon(Icons.flag, color: pallet.txt),
-                          Text("${game.flags}x"),
+                          Text("${game.forgiveness}x"),
                         ],
                       ),
                     )
@@ -152,7 +159,7 @@ class GamePage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Text("${game.flags}x"),
+                          Text("${game.forgiveness}x"),
                         ],
                       ),
                     ),
